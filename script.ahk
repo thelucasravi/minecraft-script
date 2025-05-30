@@ -19,11 +19,11 @@ return
 MacroLoop:
 turnCount++
 
-; Etapa 1: Anda com D + autoclick por 3,4s
+; Etapa 1: Anda com D + autoclick por ~3,2s (ajustado)
 Send, {d down}
 startTime := A_TickCount
 rightClickDone := false
-while (A_TickCount - startTime < 3400) {
+while (A_TickCount - startTime < 3200) {
     if (!rightClickDone && (turnCount = 1 || turnCount = 3) && A_TickCount - startTime >= 1500) {
         Click, Right
         rightClickDone := true
@@ -57,7 +57,7 @@ if (turnCount = 5) {
     Send, 9
     Sleep, 200
 
-    ; Retoma autoclick + movimento (sem giro final)
+    ; Retoma autoclick + movimento
     Send, {d down}
     startTime := A_TickCount
     while (A_TickCount - startTime < 3400) {
