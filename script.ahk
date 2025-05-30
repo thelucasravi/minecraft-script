@@ -22,7 +22,12 @@ turnCount++
 ; Etapa 1: Anda com D + autoclick por 3,72s
 Send, {d down}
 startTime := A_TickCount
+rightClickDone := false
 while (A_TickCount - startTime < 3720) {
+    if (!rightClickDone && A_TickCount - startTime >= 1500) {
+        Click, Right
+        rightClickDone := true
+    }
     Click
     Sleep, 50
 }
@@ -52,10 +57,15 @@ if (turnCount = 5) {
     Send, 5
     Sleep, 200
 
-    ; Retoma autoclick + movimento
+    ; Retoma autoclick + movimento com clique direito no 1.5s
     Send, {d down}
     startTime := A_TickCount
+    rightClickDone := false
     while (A_TickCount - startTime < 3720) {
+        if (!rightClickDone && A_TickCount - startTime >= 1500) {
+            Click, Right
+            rightClickDone := true
+        }
         Click
         Sleep, 50
     }
