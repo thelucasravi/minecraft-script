@@ -4,7 +4,7 @@
 toggle := false
 turnCount := 0
 
-Gui, Add, Text, vStatusText w200 Center, 🟥 Macro Desativado
+Gui, Add, Text, vStatusText w200 Center, Macro Desativado
 Gui, Add, Button, gToggleMacro w200, Ativar / Desativar Macro
 Gui, Show, w220 h100, Macro Minecraft
 
@@ -13,10 +13,10 @@ return
 ToggleMacro:
 toggle := !toggle
 if (toggle) {
-    GuiControl,, StatusText, 🟩 Macro Ativado
+    GuiControl,, StatusText, Macro Ativado
     SetTimer, MacroLoop, 0
 } else {
-    GuiControl,, StatusText, 🟥 Macro Desativado
+    GuiControl,, StatusText, Macro Desativado
     SetTimer, MacroLoop, Off
 }
 return
