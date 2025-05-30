@@ -13,8 +13,8 @@ loopCount := 0
 F7::
 if (macroAtivo) {
     macroAtivo := false
-    GuiControl,, ToggleButton, Ativar Macro
     SetTimer, MacroLoop, Off
+    GuiControl,, ToggleButton, Ativar Macro
     Gui, Show
 }
 return
@@ -42,8 +42,8 @@ macroAtivo := !macroAtivo
 
 if (macroAtivo) {
     GuiControl,, ToggleButton, Desativar Macro
+    SetTimer, MacroLoop, 10
     Gui, Hide
-    SetTimer, MacroLoop, 0
 } else {
     GuiControl,, ToggleButton, Ativar Macro
     SetTimer, MacroLoop, Off
