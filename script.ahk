@@ -19,11 +19,11 @@ return
 MacroLoop:
 turnCount++
 
-; Etapa 1: Anda com D + autoclick por ~3,2s (ajustado)
+; Etapa 1: Anda com D + autoclick por 3,4s
 Send, {d down}
 startTime := A_TickCount
 rightClickDone := false
-while (A_TickCount - startTime < 3200) {
+while (A_TickCount - startTime < 3400) {
     if (!rightClickDone && (turnCount = 1 || turnCount = 3) && A_TickCount - startTime >= 1500) {
         Click, Right
         rightClickDone := true
@@ -35,7 +35,17 @@ Send, {d up}
 
 ; Etapa 2: Gira a câmera 90 graus
 MouseMove, 600, 0, 0, R
-Sleep, 500
+Sleep, 100
+
+; Pressiona W duas vezes rapidamente
+Send, {w down}
+Sleep, 50
+Send, {w up}
+Sleep, 50
+Send, {w down}
+Sleep, 50
+Send, {w up}
+Sleep, 100
 
 ; Etapa 3: Se for o 5º ciclo, executa ação especial
 if (turnCount = 5) {
@@ -56,6 +66,29 @@ if (turnCount = 5) {
     ; Pressiona tecla 9
     Send, 9
     Sleep, 200
+
+    ; Retoma autoclick + movimento
+    Send, {d down}
+    startTime := A_TickCount
+    while (A_TickCount - startTime < 3400) {
+        Click
+        Sleep, 50
+    }
+    Send, {d up}
+
+    ; Gira a câmera novamente
+    MouseMove, 600, 0, 0, R
+    Sleep, 100
+
+    ; Pressiona W duas vezes rapidamente após o giro
+    Send, {w down}
+    Sleep, 50
+    Send, {w up}
+    Sleep, 50
+    Send, {w down}
+    Sleep, 50
+    Send, {w up}
+    Sleep, 100
 
     ; Reinicia o contador
     turnCount := 0
