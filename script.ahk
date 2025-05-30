@@ -3,7 +3,7 @@
 SetTitleMatchMode, 2
 
 ; Caminho da imagem do dragão
-imagePath := "C:\Users\lucas\OneDrive\Área de Trabalho\macrofarmredemastery\dragao.png"
+imagePath := "C:\macro\dragao.png"
 
 ; Inicializa toggle e contador
 macroAtivo := false
