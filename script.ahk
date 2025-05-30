@@ -5,16 +5,18 @@ SetTitleMatchMode, 2
 toggle := false
 turnCount := 0
 
-; GUI moderna inspirada no launcher Mastery
+dragaoPath := A_ScriptDir . "\dragao.png"  ; Caminho da imagem
+
+; GUI moderna com imagem
 Gui, +AlwaysOnTop -SysMenu +MinimizeBox
 Gui, Color, 1E1E1E
 Gui, Font, s12 Bold, Segoe UI
 
-Gui, Add, Picture, x10 y10 w32 h32, shell32.dll ; Ícone (substituível)
-Gui, Add, Text, x50 y10 w200 h30 cFFFFFF vStatusText, 🟥 Macro Desativado
+Gui, Add, Picture, x10 y10 w32 h32 vIconImg, %dragaoPath%
+Gui, Add, Text, x50 y10 w200 h30 cFFFFFF vStatusText, Macro Desativado
 
 Gui, Font, s11 Bold, Segoe UI
-Gui, Add, Button, x10 y50 w240 h40 gToggleMacro cFFFFFF Background2ECC71 vToggleButton, ▶ Ativar Macro
+Gui, Add, Button, x10 y50 w240 h40 gToggleMacro cFFFFFF Background2ECC71 vToggleButton, Ativar Macro
 
 Gui, Show, w260 h110, Macro Minecraft
 return
@@ -23,14 +25,14 @@ ToggleMacro:
 toggle := !toggle
 
 if (toggle) {
-    GuiControl,, StatusText, 🟩 Macro Ativado
-    GuiControl,, ToggleButton, ⏸ Desativar Macro
-    Gui, Minimize  ; Minimiza a janela ao ativar
+    GuiControl,, StatusText, Macro Ativado
+    GuiControl,, ToggleButton, Desativar Macro
+    Gui, Minimize
     SetTimer, MacroLoop, 0
 } else {
-    GuiControl,, StatusText, 🟥 Macro Desativado
-    GuiControl,, ToggleButton, ▶ Ativar Macro
-    Gui, Show  ; Restaura a janela
+    GuiControl,, StatusText, Macro Desativado
+    GuiControl,, ToggleButton, Ativar Macro
+    Gui, Show
     SetTimer, MacroLoop, Off
 }
 return
