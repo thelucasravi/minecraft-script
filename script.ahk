@@ -23,7 +23,7 @@ turnCount++
 Send, {d down}
 startTime := A_TickCount
 rightClickDone := false
-while (A_TickCount - startTime < 3400) {
+while (A_TickCount - startTime < 3000) {
     if (!rightClickDone && (turnCount = 1 || turnCount = 3) && A_TickCount - startTime >= 1500) {
         Click, Right
         rightClickDone := true
@@ -60,7 +60,7 @@ if (turnCount = 5) {
     ; Retoma autoclick + movimento (sem clique direito aqui)
     Send, {d down}
     startTime := A_TickCount
-    while (A_TickCount - startTime < 3400) {
+    while (A_TickCount - startTime < 3000) {
         Click
         Sleep, 50
     }
