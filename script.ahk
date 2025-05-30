@@ -11,37 +11,30 @@ loopCount := 0
 
 ; GUI Principal
 Gui, +AlwaysOnTop +SysMenu +ToolWindow  ; Barra normal com botão fechar
-Gui, Font, s12 Bold cWhite, Segoe UI
+Gui, Font, s14 Bold c00FF00, Segoe UI
 Gui, Color, 1E1E1E
 
-; Texto verde no topo, para simular título colorido
-Gui, Font, s14 Bold c00FF00, Segoe UI
-Gui, Add, Text, x10 y10 w270 h30 vTituloText, Macro Minecraft
+; Texto verde no topo (título)
+Gui, Add, Text, x10 y10 w130 h30 vTituloText, Macro Minecraft
 
-; Ícone dragão ao lado do texto título
-Gui, Add, Picture, x290 y10 w40 h40 vIcone, %imagePath%
+; Ícone dragão bem perto do texto
+Gui, Add, Picture, x145 y10 w40 h40 vIcone, %imagePath%
 
-; Status texto abaixo do título
-Gui, Font, s12 Bold cWhite
-Gui, Add, Text, x10 y60 w300 h40 vStatusText, ❌ Macro Desativado
+; Botão ativar/desativar macro, abaixo do título e ícone
+Gui, Font, s10 Bold cWhite
+Gui, Add, Button, x20 y60 w240 h40 gToggleMacro vToggleButton, Ativar Macro
 
-; Botão ativar/desativar macro
-Gui, Font, s10 Bold
-Gui, Add, Button, x20 y110 w240 h40 gToggleMacro vToggleButton, Ativar Macro
-
-Gui, Show,, Script thelucasravi v3.1
+Gui, Show,, Script v3.2
 return
 
 ToggleMacro:
 macroAtivo := !macroAtivo
 
 if (macroAtivo) {
-    GuiControl,, StatusText, ✅ Macro Ativado
     GuiControl,, ToggleButton, Desativar Macro
     Gui, Hide
     SetTimer, MacroLoop, 0
 } else {
-    GuiControl,, StatusText, ❌ Macro Desativado
     GuiControl,, ToggleButton, Ativar Macro
     SetTimer, MacroLoop, Off
 }
