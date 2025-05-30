@@ -1,117 +1,75 @@
 #Persistent
 #SingleInstance Force
-SetTitleMatchMode, 2
 
-; Caminho da imagem do dragão
-imagePath := "C:\macro\dragao.png"
+toggle := false
+turnCount := 0
 
-; Inicializa toggle e contador
-macroAtivo := false
-loopCount := 0
+Gui, Add, Text, vStatusText w200 Center, 🟥 Macro Desativado
+Gui, Add, Button, gToggleMacro w200, Ativar / Desativar Macro
+Gui, Show, w220 h100, Macro Minecraft
 
-; Hotkey para ativar/desativar macro com F7
-F7::
-ToggleMacro()
-return
-
-; GUI Principal
-Gui, +AlwaysOnTop +SysMenu +ToolWindow  ; Barra normal com botão fechar
-Gui, Font, s14 Bold c00FF00, Segoe UI
-Gui, Color, 1E1E1E
-
-; Texto verde no topo (título)
-Gui, Add, Text, x10 y10 w130 h30 vTituloText, Macro Minecraft
-
-; Ícone dragão bem perto do texto
-Gui, Add, Picture, x145 y10 w40 h40 vIcone, %imagePath%
-
-; Botão ativar/desativar macro, abaixo do título e ícone
-Gui, Font, s10 Bold cWhite
-Gui, Add, Button, x20 y60 w240 h40 gToggleMacro vToggleButton, Ativar Macro
-
-Gui, Show,, Script v3.2
 return
 
 ToggleMacro:
-ToggleMacro()
+toggle := !toggle
+if (toggle) {
+    GuiControl,, StatusText, 🟩 Macro Ativado
+    SetTimer, MacroLoop, 0
+} else {
+    GuiControl,, StatusText, 🟥 Macro Desativado
+    SetTimer, MacroLoop, Off
+}
 return
 
-ToggleMacro() {
-    global macroAtivo, loopCount
-
-    macroAtivo := !macroAtivo
-
-    if (macroAtivo) {
-        GuiControl,, ToggleButton, Desativar Macro
-        SetTimer, MacroLoop, 10
-        Gui, Hide
-        TrayTip, Macro Minecraft, Macro ativado!, 3, 17
-    } else {
-        GuiControl,, ToggleButton, Ativar Macro
-        SetTimer, MacroLoop, Off
-        Gui, Show
-        TrayTip, Macro Minecraft, Macro desativado!, 3, 18
-        loopCount := 0  ; Reinicia contador ao desativar
-    }
-}
+GuiClose:
+ExitApp
 
 MacroLoop:
-; Pressiona D
+turnCount++
+
+; Anda com D + autoclick (com clique direito na 1ª e 3ª volta)
 Send, {d down}
 startTime := A_TickCount
-
-; Determina se deve clicar com o botão direito na 1ª e 3ª volta
-fazerCliqueEspecial := (loopCount = 0 || loopCount = 2)
-
-while (A_TickCount - startTime < 3520) {
-    if (fazerCliqueEspecial && (A_TickCount - startTime > 1500) && (A_TickCount - startTime < 1600)) {
-        Click, right
-        Sleep, 50
-        fazerCliqueEspecial := false
-    } else {
-        Click
+rightClickDone := false
+while (A_TickCount - startTime < 3706) {
+    if (!rightClickDone && (turnCount = 1 || turnCount = 3) && A_TickCount - startTime >= 1500) {
+        Click, Right
+        rightClickDone := true
     }
+    Click
     Sleep, 50
 }
-
-; Solta D
 Send, {d up}
 
-loopCount++
-
-if (loopCount < 4) {
-    MouseMove, 600, 0, 0, R
-    Sleep, 500
-    return
-}
-
-; Após 4 voltas, executa interação especial
+; Gira a câmera
 MouseMove, 600, 0, 0, R
 Sleep, 500
-Send, 9
-Sleep, 100
-Click, right
-Sleep, 1000
-MouseMove, 0, -100, 10, R
-Sleep, 100
-Click
-Sleep, 200
-Send, 5
 
-; Reinicia contagem
-loopCount := 0
+; Se for a 5ª volta
+if (turnCount = 5) {
+    ; Abre o menu e interage
+    Send, 9
+    Sleep, 200
+    Click, Right
+    Sleep, 1000
+    MouseMove, 0, -100, 0, R
+    Sleep, 200
+    Click, Left
+    Sleep, 200
+    Send, 5
+    Sleep, 200
+
+    ; Anda novamente (sem clique direito aqui)
+    Send, {d down}
+    startTime := A_TickCount
+    while (A_TickCount - startTime < 3706) {
+        Click
+        Sleep, 50
+    }
+    Send, {d up}
+    MouseMove, 600, 0, 0, R
+    Sleep, 500
+    turnCount := 0
+}
+
 return
-
-; Tray Menu
-Menu, Tray, NoStandard
-Menu, Tray, Add, Mostrar Macro, ShowGUI
-Menu, Tray, Add, Sair, ExitApp
-Menu, Tray, Tip, Macro Minecraft
-return
-
-ShowGUI:
-Gui, Show
-return
-
-ExitApp:
-ExitApp
