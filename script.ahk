@@ -33,11 +33,9 @@ while (A_TickCount - startTime < 3400) {
 }
 Send, {d up}
 
-; Etapa 2: Gira a câmera 90 graus, exceto no 5º ciclo (será feito depois)
-if (turnCount != 5) {
-    MouseMove, 600, 0, 0, R
-    Sleep, 500
-}
+; Etapa 2: Gira a câmera 90 graus
+MouseMove, 600, 0, 0, R
+Sleep, 500
 
 ; Etapa 3: Se for o 5º ciclo, executa ação especial
 if (turnCount = 5) {
@@ -55,11 +53,15 @@ if (turnCount = 5) {
     Click, Left
     Sleep, 200
 
-    ; Pressiona tecla 9 antes de retomar
+    ; Pressiona tecla 9
     Send, 9
     Sleep, 200
 
-    ; Retoma autoclick + movimento
+    ; Gira a câmera novamente
+    MouseMove, 600, 0, 0, R
+    Sleep, 500
+
+    ; Agora retoma autoclick + movimento
     Send, {d down}
     startTime := A_TickCount
     while (A_TickCount - startTime < 3400) {
@@ -68,7 +70,7 @@ if (turnCount = 5) {
     }
     Send, {d up}
 
-    ; Gira a câmera novamente
+    ; Gira novamente
     MouseMove, 600, 0, 0, R
     Sleep, 500
 
