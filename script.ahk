@@ -16,29 +16,21 @@ if (toggle) {
 return
 
 MacroLoop:
-; Anda para a direita (D)
+; Pressiona D
 Send, {d down}
 
-clicking := true
-
-Loop
-{
-    if (!clicking)
-        break
+; Tempo total de movimento: 3720 ms
+startTime := A_TickCount
+while (A_TickCount - startTime < 3720) {
     Click
-    Sleep, 50  ; Velocidade do auto click, ajuste se quiser mais rápido/lento
+    Sleep, 50  ; Ajuste a velocidade do autoclick aqui
 }
-return
 
-; Aguarda os 3,72 segundos durante o loop de clique
-Sleep, 3720
-
-; Para movimento e clique
+; Solta D
 Send, {d up}
-clicking := false
 
-; Gira a tela 90 graus para a direita
+; Gira a câmera para a direita (ajuste o valor se necessário)
 MouseMove, 600, 0, 0, R
-Sleep, 500
+Sleep, 500  ; Pequeno intervalo antes de repetir
 
 return
