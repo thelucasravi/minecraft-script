@@ -34,7 +34,7 @@ Gui, Add, Picture, x145 y10 w40 h40 vIcone, %imagePath%
 Gui, Font, s10 Bold cWhite
 Gui, Add, Button, x20 y60 w240 h40 gToggleMacro vToggleButton, Ativar Macro
 
-Gui, Show,, Script v3.3
+Gui, Show,, Macro Minecraft
 return
 
 ToggleMacro:
