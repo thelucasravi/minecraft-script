@@ -39,8 +39,8 @@ Sleep, 500
 
 ; Etapa 3: Se for o 5º ciclo, executa ação especial
 if (turnCount = 5) {
-    ; Abre menu com tecla 9
-    Send, 2
+    ; Abre menu com tecla 3
+    Send, 3
     Sleep, 200
 
     ; Clica com botão direito
@@ -53,8 +53,8 @@ if (turnCount = 5) {
     Click, Left
     Sleep, 200
 
-    ; Pressiona tecla 5 antes de retomar
-    Send, 3
+    ; Pressiona tecla 2 antes de retomar
+    Send, 2
     Sleep, 200
 
     ; Retoma autoclick + movimento (sem clique direito aqui)
