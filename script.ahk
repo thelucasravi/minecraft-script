@@ -7,10 +7,10 @@ F7::
 toggle := !toggle
 
 if (toggle) {
-    TrayTip, Macro Minecraft, 🟢 Macro Ativado, 5
+    TrayTip, Macro Minecraft, Macro Ativado, 5
     SetTimer, MacroLoop, 0
 } else {
-    TrayTip, Macro Minecraft, 🔴 Macro Desativado, 5
+    TrayTip, Macro Minecraft, Macro Desativado, 5
     SetTimer, MacroLoop, Off
 }
 return
