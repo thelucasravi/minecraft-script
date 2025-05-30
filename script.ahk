@@ -10,13 +10,18 @@ macroAtivo := false
 loopCount := 0
 
 ; GUI Principal
-Gui, +AlwaysOnTop -SysMenu +ToolWindow
+Gui, +AlwaysOnTop +SysMenu +ToolWindow  ; +SysMenu para ativar o botão de fechar
 Gui, Font, s12 Bold cWhite, Segoe UI
 Gui, Color, 1E1E1E
 Gui, Add, Picture, x10 y10 w40 h40 vIcone, %imagePath%
 Gui, Add, Text, x60 y10 w300 h40 vStatusText, ❌ Macro Desativado
 Gui, Font, s10 Bold
 Gui, Add, Button, x20 y60 w240 h40 gToggleMacro vToggleButton, Ativar Macro
+
+; Texto no rodapé com cor verde
+Gui, Font, s10 Bold c00FF00, Segoe UI
+Gui, Add, Text, xm y+10 w280 h20 Center vFooterText, Macro Minecraft
+
 Gui, Show,, Macro Minecraft
 return
 
