@@ -5,12 +5,12 @@ SetTitleMatchMode, 2
 toggle := false
 turnCount := 0
 
-; GUI moderna inspirada no launcher
-Gui, +AlwaysOnTop +ToolWindow -SysMenu
+; GUI moderna inspirada no launcher Mastery
+Gui, +AlwaysOnTop -SysMenu +MinimizeBox
 Gui, Color, 1E1E1E
 Gui, Font, s12 Bold, Segoe UI
 
-Gui, Add, Picture, x10 y10 w32 h32, shell32.dll ; Ícone básico (pode substituir)
+Gui, Add, Picture, x10 y10 w32 h32, shell32.dll ; Ícone (substituível)
 Gui, Add, Text, x50 y10 w200 h30 cFFFFFF vStatusText, 🟥 Macro Desativado
 
 Gui, Font, s11 Bold, Segoe UI
@@ -25,10 +25,12 @@ toggle := !toggle
 if (toggle) {
     GuiControl,, StatusText, 🟩 Macro Ativado
     GuiControl,, ToggleButton, ⏸ Desativar Macro
+    Gui, Minimize  ; Minimiza a janela ao ativar
     SetTimer, MacroLoop, 0
 } else {
     GuiControl,, StatusText, 🟥 Macro Desativado
     GuiControl,, ToggleButton, ▶ Ativar Macro
+    Gui, Show  ; Restaura a janela
     SetTimer, MacroLoop, Off
 }
 return
