@@ -18,7 +18,7 @@ return
 MacroLoop:
 ; Anda para a direita (D)
 Send, {d down}
-Sleep, 4000
+Sleep, 3800
 Send, {d up}
 
 ; Gira a tela 90 graus para a direita (ajuste o valor conforme necessário)
