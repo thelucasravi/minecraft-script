@@ -32,22 +32,27 @@ Send, {d up}
 MouseMove, 600, 0, 0, R
 Sleep, 500
 
-; Se for o 5º ciclo, executa a ação especial
+; Etapa 3: Se for o 5º ciclo, executa ação especial
 if (turnCount = 5) {
-    ; Etapa 3: Executa ação especial
+    ; Abre menu com tecla 9
     Send, 9
     Sleep, 200
 
+    ; Clica com botão direito
     Click, Right
-    Sleep, 1000  ; Espera 1 segundo
+    Sleep, 1000
 
-    MouseMove, 0, -50, 0, R
+    ; Move mouse para cima e clica com botão esquerdo
+    MouseMove, 0, -100, 0, R
     Sleep, 200
-
     Click, Left
     Sleep, 200
 
-    ; Retoma o autoclick e o movimento normal
+    ; Pressiona tecla 5 antes de retomar
+    Send, 5
+    Sleep, 200
+
+    ; Retoma autoclick + movimento
     Send, {d down}
     startTime := A_TickCount
     while (A_TickCount - startTime < 3720) {
@@ -60,7 +65,7 @@ if (turnCount = 5) {
     MouseMove, 600, 0, 0, R
     Sleep, 500
 
-    ; Reinicia contador
+    ; Reinicia o contador
     turnCount := 0
 }
 
