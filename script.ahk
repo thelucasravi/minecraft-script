@@ -7,10 +7,10 @@ F7::
 toggle := !toggle
 
 if (toggle) {
-    TrayTip, Macro Minecraft, Macro Ativado, 5
+    TrayTip, Macro Minecraft, 🟢 Macro Ativado, 5
     SetTimer, MacroLoop, 0
 } else {
-    TrayTip, Macro Minecraft, Macro Desativado, 5
+    TrayTip, Macro Minecraft, 🔴 Macro Desativado, 5
     SetTimer, MacroLoop, Off
 }
 return
@@ -18,11 +18,26 @@ return
 MacroLoop:
 ; Anda para a direita (D)
 Send, {d down}
-Sleep, 3720
-Send, {d up}
 
-; Gira a tela 90 graus para a direita (ajuste o valor conforme necessário)
-; Exemplo: move o mouse 300 pixels para a direita
+clicking := true
+
+Loop
+{
+    if (!clicking)
+        break
+    Click
+    Sleep, 50  ; Velocidade do auto click, ajuste se quiser mais rápido/lento
+}
+return
+
+; Aguarda os 3,72 segundos durante o loop de clique
+Sleep, 3720
+
+; Para movimento e clique
+Send, {d up}
+clicking := false
+
+; Gira a tela 90 graus para a direita
 MouseMove, 600, 0, 0, R
 Sleep, 500
 
