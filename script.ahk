@@ -57,11 +57,7 @@ if (turnCount = 5) {
     Send, 9
     Sleep, 200
 
-    ; Gira a câmera novamente
-    MouseMove, 600, 0, 0, R
-    Sleep, 500
-
-    ; Agora retoma autoclick + movimento
+    ; Retoma autoclick + movimento (sem giro final)
     Send, {d down}
     startTime := A_TickCount
     while (A_TickCount - startTime < 3400) {
@@ -69,10 +65,6 @@ if (turnCount = 5) {
         Sleep, 50
     }
     Send, {d up}
-
-    ; Gira novamente
-    MouseMove, 600, 0, 0, R
-    Sleep, 500
 
     ; Reinicia o contador
     turnCount := 0
