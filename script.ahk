@@ -9,8 +9,18 @@ imagePath := "C:\macro\dragao.png"
 macroAtivo := false
 loopCount := 0
 
+; Hotkey para desativar macro e mostrar GUI
+F7::
+if (macroAtivo) {
+    macroAtivo := false
+    GuiControl,, ToggleButton, Ativar Macro
+    SetTimer, MacroLoop, Off
+    Gui, Show
+}
+return
+
 ; GUI Principal
-Gui, +AlwaysOnTop +SysMenu +ToolWindow  ; Barra normal com botão fechar
+Gui, +AlwaysOnTop +SysMenu +MinimizeBox +ToolWindow  ; Barra normal com fechar e minimizar
 Gui, Font, s14 Bold c00FF00, Segoe UI
 Gui, Color, 1E1E1E
 
@@ -24,7 +34,7 @@ Gui, Add, Picture, x145 y10 w40 h40 vIcone, %imagePath%
 Gui, Font, s10 Bold cWhite
 Gui, Add, Button, x20 y60 w240 h40 gToggleMacro vToggleButton, Ativar Macro
 
-Gui, Show,, Script v3.2
+Gui, Show,, Script v3.3
 return
 
 ToggleMacro:
@@ -37,6 +47,7 @@ if (macroAtivo) {
 } else {
     GuiControl,, ToggleButton, Ativar Macro
     SetTimer, MacroLoop, Off
+    Gui, Show
 }
 return
 
