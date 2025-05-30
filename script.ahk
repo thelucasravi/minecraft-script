@@ -29,7 +29,7 @@ Gui, Add, Text, x10 y60 w300 h40 vStatusText, ❌ Macro Desativado
 Gui, Font, s10 Bold
 Gui, Add, Button, x20 y110 w240 h40 gToggleMacro vToggleButton, Ativar Macro
 
-Gui, Show,, Macro Minecraft
+Gui, Show,, Script thelucasravi v3.1
 return
 
 ToggleMacro:
