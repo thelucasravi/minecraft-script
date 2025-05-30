@@ -1,22 +1,34 @@
 #Persistent
 #SingleInstance Force
+SetTitleMatchMode, 2
 
 toggle := false
 turnCount := 0
 
-Gui, Add, Text, vStatusText w200 Center, 🟥 Macro Desativado
-Gui, Add, Button, gToggleMacro w200, Ativar / Desativar Macro
-Gui, Show, w220 h100, Macro Minecraft
+; GUI moderna inspirada no launcher
+Gui, +AlwaysOnTop +ToolWindow -SysMenu
+Gui, Color, 1E1E1E
+Gui, Font, s12 Bold, Segoe UI
 
+Gui, Add, Picture, x10 y10 w32 h32, shell32.dll ; Ícone básico (pode substituir)
+Gui, Add, Text, x50 y10 w200 h30 cFFFFFF vStatusText, 🟥 Macro Desativado
+
+Gui, Font, s11 Bold, Segoe UI
+Gui, Add, Button, x10 y50 w240 h40 gToggleMacro cFFFFFF Background2ECC71 vToggleButton, ▶ Ativar Macro
+
+Gui, Show, w260 h110, Macro Minecraft
 return
 
 ToggleMacro:
 toggle := !toggle
+
 if (toggle) {
     GuiControl,, StatusText, 🟩 Macro Ativado
+    GuiControl,, ToggleButton, ⏸ Desativar Macro
     SetTimer, MacroLoop, 0
 } else {
     GuiControl,, StatusText, 🟥 Macro Desativado
+    GuiControl,, ToggleButton, ▶ Ativar Macro
     SetTimer, MacroLoop, Off
 }
 return
@@ -27,7 +39,6 @@ ExitApp
 MacroLoop:
 turnCount++
 
-; Anda com D + autoclick (com clique direito na 1ª e 3ª volta)
 Send, {d down}
 startTime := A_TickCount
 rightClickDone := false
@@ -41,13 +52,10 @@ while (A_TickCount - startTime < 3706) {
 }
 Send, {d up}
 
-; Gira a câmera
 MouseMove, 600, 0, 0, R
 Sleep, 500
 
-; Se for a 5ª volta
 if (turnCount = 5) {
-    ; Abre o menu e interage
     Send, 9
     Sleep, 200
     Click, Right
@@ -59,7 +67,6 @@ if (turnCount = 5) {
     Send, 5
     Sleep, 200
 
-    ; Anda novamente (sem clique direito aqui)
     Send, {d down}
     startTime := A_TickCount
     while (A_TickCount - startTime < 3706) {
@@ -71,5 +78,4 @@ if (turnCount = 5) {
     Sleep, 500
     turnCount := 0
 }
-
 return
