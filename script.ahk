@@ -1,33 +1,25 @@
 #Persistent
 #SingleInstance Force
-
+SetTitleMatchMode, 2
 toggle := false
 turnCount := 0
 
-Gui, Add, Text, vStatusText w200 Center, Macro Desativado
-Gui, Add, Button, gToggleMacro w200, Ativar / Desativar Macro
-Gui, Show, w220 h100, Macro Minecraft
-
-return
-
-ToggleMacro:
+F7::
 toggle := !toggle
+
 if (toggle) {
-    GuiControl,, StatusText, Macro Ativado
+    TrayTip, Macro Minecraft, Macro Ativado, 5
     SetTimer, MacroLoop, 0
 } else {
-    GuiControl,, StatusText, Macro Desativado
+    TrayTip, Macro Minecraft, Macro Desativado, 5
     SetTimer, MacroLoop, Off
 }
 return
 
-GuiClose:
-ExitApp
-
 MacroLoop:
 turnCount++
 
-; Anda com D + autoclick (com clique direito na 1ª e 3ª volta)
+; Etapa 1: Anda com D + autoclick por 3,06s
 Send, {d down}
 startTime := A_TickCount
 rightClickDone := false
@@ -41,25 +33,31 @@ while (A_TickCount - startTime < 3706) {
 }
 Send, {d up}
 
-; Gira a câmera
+; Etapa 2: Gira a câmera 90 graus
 MouseMove, 600, 0, 0, R
 Sleep, 500
 
-; Se for a 5ª volta
+; Etapa 3: Se for o 5º ciclo, executa ação especial
 if (turnCount = 5) {
-    ; Abre o menu e interage
+    ; Abre menu com tecla 9
     Send, 9
     Sleep, 200
+
+    ; Clica com botão direito
     Click, Right
     Sleep, 1000
-    MouseMove, 0, -100, 0, R
+
+    ; Move mouse para cima e clica com botão esquerdo
+    MouseMove, 0, -50, 0, R
     Sleep, 200
     Click, Left
     Sleep, 200
+
+    ; Pressiona tecla 5 antes de retomar
     Send, 5
     Sleep, 200
 
-    ; Anda novamente (sem clique direito aqui)
+    ; Retoma autoclick + movimento (sem clique direito aqui)
     Send, {d down}
     startTime := A_TickCount
     while (A_TickCount - startTime < 3706) {
@@ -67,8 +65,12 @@ if (turnCount = 5) {
         Sleep, 50
     }
     Send, {d up}
+
+    ; Gira a câmera novamente
     MouseMove, 600, 0, 0, R
     Sleep, 500
+
+    ; Reinicia o contador
     turnCount := 0
 }
 
