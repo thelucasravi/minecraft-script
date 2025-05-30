@@ -17,30 +17,37 @@ if (toggle) {
 return
 
 MacroLoop:
-; Verifica se é o 5º ciclo
 turnCount++
-if (turnCount = 5) {
-    ; Vira a câmera
-    MouseMove, 600, 0, 0, R
-    Sleep, 300
 
-    ; Executa ação especial
+; Etapa 1: Anda com D + autoclick por 3,72s
+Send, {d down}
+startTime := A_TickCount
+while (A_TickCount - startTime < 3720) {
+    Click
+    Sleep, 50
+}
+Send, {d up}
+
+; Etapa 2: Gira a câmera 90 graus
+MouseMove, 600, 0, 0, R
+Sleep, 500
+
+; Se for o 5º ciclo, executa a ação especial
+if (turnCount = 5) {
+    ; Etapa 3: Executa ação especial
     Send, 9
     Sleep, 200
 
     Click, Right
-    Sleep, 200
+    Sleep, 1000  ; Espera 1 segundo
 
-    MouseMove, 0, -30, 0, R
-    Sleep, 100
+    MouseMove, 0, -100, 0, R
+    Sleep, 200
 
     Click, Left
     Sleep, 200
 
-    ; Reinicia o contador
-    turnCount := 0
-} else {
-    ; Pressiona D e faz autoclick por 3,72s
+    ; Retoma o autoclick e o movimento normal
     Send, {d down}
     startTime := A_TickCount
     while (A_TickCount - startTime < 3720) {
@@ -49,9 +56,12 @@ if (turnCount = 5) {
     }
     Send, {d up}
 
-    ; Gira a câmera para a direita
+    ; Gira a câmera novamente
     MouseMove, 600, 0, 0, R
     Sleep, 500
+
+    ; Reinicia contador
+    turnCount := 0
 }
 
 return
