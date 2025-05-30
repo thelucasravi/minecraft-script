@@ -5,7 +5,8 @@ SetTitleMatchMode, 2
 toggle := false
 turnCount := 0
 
-dragaoPath := A_ScriptDir . "C:\Users\lucas\OneDrive\Área de Trabalho\macrofarmredemastery\dragao.png"  ; Caminho da imagem
+; Caminho completo da imagem
+dragaoPath := "C:\Users\lucas\OneDrive\Área de Trabalho\macrofarmredemastery\dragao.png"
 
 ; GUI moderna com imagem
 Gui, +AlwaysOnTop -SysMenu +MinimizeBox
