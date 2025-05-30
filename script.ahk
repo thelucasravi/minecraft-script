@@ -43,7 +43,7 @@ if (turnCount = 5) {
     Sleep, 1000
 
     ; Move mouse para cima e clica com botão esquerdo
-    MouseMove, 0, -100, 0, R
+    MouseMove, 0, -50, 0, R
     Sleep, 200
     Click, Left
     Sleep, 200
