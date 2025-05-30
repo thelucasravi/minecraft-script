@@ -2,85 +2,96 @@
 #SingleInstance Force
 SetTitleMatchMode, 2
 
-toggle := false
-turnCount := 0
+; Caminho da imagem do dragão
+imagePath := "C:\Users\lucas\OneDrive\Área de Trabalho\macrofarmredemastery\dragao.png"
 
-; Caminho completo da imagem
-dragaoPath := "C:\Users\lucas\OneDrive\Área de Trabalho\macrofarmredemastery\dragao.png"
+; Inicializa toggle e contador
+macroAtivo := false
+loopCount := 0
 
-; GUI moderna com imagem
-Gui, +AlwaysOnTop -SysMenu +MinimizeBox
+; GUI Principal
+Gui, +AlwaysOnTop -SysMenu +ToolWindow
+Gui, Font, s12 Bold cWhite, Segoe UI
 Gui, Color, 1E1E1E
-Gui, Font, s12 Bold, Segoe UI
-
-Gui, Add, Picture, x10 y10 w32 h32 vIconImg, %dragaoPath%
-Gui, Add, Text, x50 y10 w200 h30 cFFFFFF vStatusText, Macro Desativado
-
-Gui, Font, s11 Bold, Segoe UI
-Gui, Add, Button, x10 y50 w240 h40 gToggleMacro cFFFFFF Background2ECC71 vToggleButton, Ativar Macro
-
-Gui, Show, w260 h110, Macro Minecraft
+Gui, Add, Picture, x10 y10 w40 h40 vIcone, %imagePath%
+Gui, Add, Text, x60 y10 w300 h40 vStatusText, ❌ Macro Desativado
+Gui, Font, s10 Bold
+Gui, Add, Button, x20 y60 w240 h40 gToggleMacro vToggleButton, Ativar Macro
+Gui, Show,, Macro Minecraft
 return
 
 ToggleMacro:
-toggle := !toggle
+macroAtivo := !macroAtivo
 
-if (toggle) {
-    GuiControl,, StatusText, Macro Ativado
+if (macroAtivo) {
+    GuiControl,, StatusText, ✅ Macro Ativado
     GuiControl,, ToggleButton, Desativar Macro
-    Gui, Minimize
+    Gui, Hide
     SetTimer, MacroLoop, 0
 } else {
-    GuiControl,, StatusText, Macro Desativado
+    GuiControl,, StatusText, ❌ Macro Desativado
     GuiControl,, ToggleButton, Ativar Macro
-    Gui, Show
     SetTimer, MacroLoop, Off
 }
 return
 
-GuiClose:
-ExitApp
-
 MacroLoop:
-turnCount++
-
+; Pressiona D
 Send, {d down}
 startTime := A_TickCount
-rightClickDone := false
-while (A_TickCount - startTime < 3706) {
-    if (!rightClickDone && (turnCount = 1 || turnCount = 3) && A_TickCount - startTime >= 1500) {
-        Click, Right
-        rightClickDone := true
+
+; Determina se deve clicar com o botão direito na 1ª e 3ª volta
+fazerCliqueEspecial := (loopCount = 0 || loopCount = 2)
+
+while (A_TickCount - startTime < 3520) {
+    if (fazerCliqueEspecial && (A_TickCount - startTime > 1500) && (A_TickCount - startTime < 1600)) {
+        Click, right
+        Sleep, 50
+        fazerCliqueEspecial := false
+    } else {
+        Click
     }
-    Click
     Sleep, 50
 }
+
+; Solta D
 Send, {d up}
 
-MouseMove, 600, 0, 0, R
-Sleep, 500
+loopCount++
 
-if (turnCount = 5) {
-    Send, 9
-    Sleep, 200
-    Click, Right
-    Sleep, 1000
-    MouseMove, 0, -100, 0, R
-    Sleep, 200
-    Click, Left
-    Sleep, 200
-    Send, 5
-    Sleep, 200
-
-    Send, {d down}
-    startTime := A_TickCount
-    while (A_TickCount - startTime < 3706) {
-        Click
-        Sleep, 50
-    }
-    Send, {d up}
+if (loopCount < 4) {
     MouseMove, 600, 0, 0, R
     Sleep, 500
-    turnCount := 0
+    return
 }
+
+; Após 4 voltas, executa interação especial
+MouseMove, 600, 0, 0, R
+Sleep, 500
+Send, 9
+Sleep, 100
+Click, right
+Sleep, 1000
+MouseMove, 0, -100, 10, R
+Sleep, 100
+Click
+Sleep, 200
+Send, 5
+
+; Reinicia contagem
+loopCount := 0
 return
+
+; Tray Menu
+Menu, Tray, NoStandard
+Menu, Tray, Add, Mostrar Macro, ShowGUI
+Menu, Tray, Add, Sair, ExitApp
+Menu, Tray, Tip, Macro Minecraft
+return
+
+ShowGUI:
+Gui, Show
+return
+
+ExitApp:
+ExitApp
