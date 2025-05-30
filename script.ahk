@@ -57,15 +57,6 @@ if (turnCount = 5) {
     Send, 9
     Sleep, 200
 
-    ; Retoma autoclick + movimento
-    Send, {d down}
-    startTime := A_TickCount
-    while (A_TickCount - startTime < 3400) {
-        Click
-        Sleep, 50
-    }
-    Send, {d up}
-
     ; Reinicia o contador
     turnCount := 0
 }
