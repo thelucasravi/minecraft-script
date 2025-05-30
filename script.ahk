@@ -41,7 +41,7 @@ if (turnCount = 5) {
     Click, Right
     Sleep, 1000  ; Espera 1 segundo
 
-    MouseMove, 0, -100, 0, R
+    MouseMove, 0, -50, 0, R
     Sleep, 200
 
     Click, Left
