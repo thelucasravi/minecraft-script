@@ -16,6 +16,7 @@ if (macroAtivo) {
     SetTimer, MacroLoop, Off
     GuiControl,, ToggleButton, Ativar Macro
     Gui, Show
+    WinActivate, Macro Minecraft
 }
 return
 
@@ -48,6 +49,7 @@ if (macroAtivo) {
     GuiControl,, ToggleButton, Ativar Macro
     SetTimer, MacroLoop, Off
     Gui, Show
+    WinActivate, Macro Minecraft
 }
 return
 
@@ -107,6 +109,7 @@ return
 
 ShowGUI:
 Gui, Show
+WinActivate, Macro Minecraft
 return
 
 ExitApp:
