@@ -18,12 +18,12 @@ return
 MacroLoop:
 ; Anda para a direita (D)
 Send, {d down}
-Sleep, 3800
+Sleep, 3750
 Send, {d up}
 
 ; Gira a tela 90 graus para a direita (ajuste o valor conforme necessário)
 ; Exemplo: move o mouse 300 pixels para a direita
 MouseMove, 500, 0, 0, R
-Sleep, 500
+Sleep, 600
 
 return
