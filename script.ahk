@@ -9,6 +9,11 @@ imagePath := "C:\macro\dragao.png"
 macroAtivo := false
 loopCount := 0
 
+; Hotkey para ativar/desativar macro com F7
+F7::
+ToggleMacro()
+return
+
 ; GUI Principal
 Gui, +AlwaysOnTop +SysMenu +ToolWindow  ; Barra normal com botão fechar
 Gui, Font, s14 Bold c00FF00, Segoe UI
@@ -28,17 +33,27 @@ Gui, Show,, Script v3.2
 return
 
 ToggleMacro:
-macroAtivo := !macroAtivo
-
-if (macroAtivo) {
-    GuiControl,, ToggleButton, Desativar Macro
-    Gui, Hide
-    SetTimer, MacroLoop, 0
-} else {
-    GuiControl,, ToggleButton, Ativar Macro
-    SetTimer, MacroLoop, Off
-}
+ToggleMacro()
 return
+
+ToggleMacro() {
+    global macroAtivo, loopCount
+
+    macroAtivo := !macroAtivo
+
+    if (macroAtivo) {
+        GuiControl,, ToggleButton, Desativar Macro
+        SetTimer, MacroLoop, 10
+        Gui, Hide
+        TrayTip, Macro Minecraft, Macro ativado!, 3, 17
+    } else {
+        GuiControl,, ToggleButton, Ativar Macro
+        SetTimer, MacroLoop, Off
+        Gui, Show
+        TrayTip, Macro Minecraft, Macro desativado!, 3, 18
+        loopCount := 0  ; Reinicia contador ao desativar
+    }
+}
 
 MacroLoop:
 ; Pressiona D
