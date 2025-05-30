@@ -1,46 +1,75 @@
-#Requires AutoHotkey v1.1+
 #Persistent
 #SingleInstance Force
-SetTitleMatchMode, 2
-Menu, Tray, Icon
 
-; Caminho da imagem
-imgPath := "C:\Users\lucas\OneDrive\Área de Trabalho\macrofarmredemastery\dragao.png"
+toggle := false
+turnCount := 0
 
-Gui, +AlwaysOnTop -SysMenu +ToolWindow
-Gui, Font, s10 cWhite, Segoe UI
-Gui, Color, 0x1E1E1E
+Gui, Add, Text, vStatusText w200 Center, 🟥 Macro Desativado
+Gui, Add, Button, gToggleMacro w200, Ativar / Desativar Macro
+Gui, Show, w220 h100, Macro Minecraft
 
-Gui, Add, Picture, x10 y10 w40 h40 vStatusImg, %imgPath%
-Gui, Add, Text, x60 y15 vStatusText cWhite Bold, 🛑 Macro Desativado
-Gui, Add, Button, x20 y60 w240 h40 gToggleMacro vToggleBtn, ▶ Ativar Macro
-
-Gui, Show, w280 h120, Macro Minecraft
 return
 
 ToggleMacro:
 toggle := !toggle
-
 if (toggle) {
-    GuiControl,, StatusText, ✅ Macro Ativado
-    GuiControl,, ToggleBtn, ⏸ Desativar Macro
-    WinMinimize, Macro Minecraft
-    TrayTip, Macro Minecraft, Macro Ativado, 5
+    GuiControl,, StatusText, 🟩 Macro Ativado
     SetTimer, MacroLoop, 0
 } else {
-    GuiControl,, StatusText, 🛑 Macro Desativado
-    GuiControl,, ToggleBtn, ▶ Ativar Macro
-    TrayTip, Macro Minecraft, Macro Desativado, 5
+    GuiControl,, StatusText, 🟥 Macro Desativado
     SetTimer, MacroLoop, Off
 }
 return
 
-MacroLoop:
-; Exemplo de macro
-Send, {d down}
-Sleep, 3520
-Send, {d up}
-return
-
 GuiClose:
 ExitApp
+
+MacroLoop:
+turnCount++
+
+; Anda com D + autoclick (com clique direito na 1ª e 3ª volta)
+Send, {d down}
+startTime := A_TickCount
+rightClickDone := false
+while (A_TickCount - startTime < 3706) {
+    if (!rightClickDone && (turnCount = 1 || turnCount = 3) && A_TickCount - startTime >= 1500) {
+        Click, Right
+        rightClickDone := true
+    }
+    Click
+    Sleep, 50
+}
+Send, {d up}
+
+; Gira a câmera
+MouseMove, 600, 0, 0, R
+Sleep, 500
+
+; Se for a 5ª volta
+if (turnCount = 5) {
+    ; Abre o menu e interage
+    Send, 9
+    Sleep, 200
+    Click, Right
+    Sleep, 1000
+    MouseMove, 0, -100, 0, R
+    Sleep, 200
+    Click, Left
+    Sleep, 200
+    Send, 5
+    Sleep, 200
+
+    ; Anda novamente (sem clique direito aqui)
+    Send, {d down}
+    startTime := A_TickCount
+    while (A_TickCount - startTime < 3706) {
+        Click
+        Sleep, 50
+    }
+    Send, {d up}
+    MouseMove, 600, 0, 0, R
+    Sleep, 500
+    turnCount := 0
+}
+
+return
