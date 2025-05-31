@@ -23,7 +23,7 @@ turnCount++
 Send, {d down}
 startTime := A_TickCount
 rightClickDone := false
-while (A_TickCount - startTime < 3400) {
+while (A_TickCount - startTime < 3683) {
     if (!rightClickDone && (turnCount = 1 || turnCount = 3) && A_TickCount - startTime >= 1500) {
         Click, Right
         rightClickDone := true
@@ -60,7 +60,7 @@ if (turnCount = 5) {
     ; Retoma autoclick + movimento
     Send, {d down}
     startTime := A_TickCount
-    while (A_TickCount - startTime < 3400) {
+    while (A_TickCount - startTime < 3683) {
         Click
         Sleep, 50
     }
@@ -68,16 +68,6 @@ if (turnCount = 5) {
 
     ; Gira a câmera novamente
     MouseMove, 600, 0, 0, R
-    Sleep, 100
-
-    ; Pressiona W duas vezes rapidamente após o giro
-    Send, {w down}
-    Sleep, 50
-    Send, {w up}
-    Sleep, 50
-    Send, {w down}
-    Sleep, 50
-    Send, {w up}
     Sleep, 100
 
     ; Reinicia o contador
