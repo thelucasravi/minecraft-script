@@ -69,8 +69,9 @@ if (cycleCount >= 3) {
     MouseMove, 0, -50, 0, R
     Sleep, 50
     Click, right
+    Sleep, 20
 
-    ; Resetar ciclo
+    ; Resetar o contador para reiniciar o ciclo imediatamente
     cycleCount := 0
 }
 return
