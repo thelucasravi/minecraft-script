@@ -20,7 +20,7 @@ if (!toggle)
 ; Pressiona D com autoclick por 3,4 segundos
 Send, {d down}
 start := A_TickCount
-while (A_TickCount - start < 3400) {
+while (A_TickCount - start < 3300) {
     Click
     Sleep, 50
 }
@@ -31,7 +31,7 @@ Sleep, 100
 ; Pressiona A com autoclick por 3,4 segundos
 Send, {a down}
 start := A_TickCount
-while (A_TickCount - start < 3400) {
+while (A_TickCount - start < 3300) {
     Click
     Sleep, 50
 }
