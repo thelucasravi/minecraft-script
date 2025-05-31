@@ -29,7 +29,7 @@ while (A_TickCount - startTime < 3300) {
     if (!toggle)
         break
 
-    ; Se for a 1ª ou 3ª ida para a direita, faz a ação especial durante o movimento
+    ; Ação especial na 1ª e 3ª ida para direita
     if (!didSpecial && (rightCount = 1 || rightCount = 3) && (A_TickCount - startTime > 100 && A_TickCount - startTime < 200)) {
         Send, 9
         Sleep, 30
@@ -79,6 +79,10 @@ if (cycleCount >= 3) {
     Sleep, 50
     Click, right
     Sleep, 20
+
+    ; 🔁 Garante que a tecla 9 será pressionada após o último clique direito
+    Sleep, 30
+    Send, 9
 
     ; Resetar os contadores
     cycleCount := 0
