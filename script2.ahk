@@ -2,12 +2,12 @@ toggle := false
 cycleCount := 0
 return
 
-F7:: ; Tecla para iniciar o macro
+F7:: ; Iniciar
 toggle := true
 SetTimer, MacroLoop, 10
 return
 
-F8:: ; Tecla para parar o macro
+F8:: ; Parar
 toggle := false
 SetTimer, MacroLoop, Off
 Send, {d up}
@@ -18,40 +18,46 @@ MacroLoop:
 if (!toggle)
     return
 
-; Pressiona D com autoclick por 3,3 segundos
+; ======== Pressionar D com autoclick ========
 Send, {d down}
-start := A_TickCount
-while (A_TickCount - start < 3300) {
+startTime := A_TickCount
+while (A_TickCount - startTime < 3300) {
+    if (!toggle)
+        break
     Click
     Sleep, 50
 }
 Send, {d up}
 Sleep, 100
 
-; Pressiona A com autoclick por 3,3 segundos
+; ======== Pressionar A com autoclick ========
 Send, {a down}
-start := A_TickCount
-while (A_TickCount - start < 3300) {
+startTime := A_TickCount
+while (A_TickCount - startTime < 3300) {
+    if (!toggle)
+        break
     Click
     Sleep, 50
 }
 Send, {a up}
 Sleep, 100
 
-; Incrementa o contador de ciclos
-cycleCount++
-
+; ======== Contador de ciclos ========
+cycleCount += 1
 if (cycleCount >= 3) {
     cycleCount := 0
 
-    ; Executa a sequência após 3 idas e voltas
+    ; ======== Sequência especial ========
     Send, 9
+    Sleep, 50
     Click, right
     Sleep, 50
     Send, 2
+    Sleep, 50
     Click, right
     Sleep, 50
     MouseMove, 0, -50, 0, R
+    Sleep, 50
     Click, right
     Sleep, 20
 }
