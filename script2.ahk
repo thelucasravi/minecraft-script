@@ -55,7 +55,9 @@ if (cycleCount >= 3) {
     Send, 2
     Sleep, 50
     Click, right
-    Sleep, 50
+
+    ; Espera 0.5s antes de mover o mouse
+    Sleep, 500
     MouseMove, 0, -50, 0, R
     Sleep, 50
     Click, right
