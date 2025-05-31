@@ -25,10 +25,10 @@ while (A_TickCount - startTime < 3300) {
     if (!toggle)
         break
     Click
-    Sleep, 50
+
 }
 Send, {d up}
-Sleep, 100
+
 
 ; ======== Pressionar A com autoclick ========
 Send, {a down}
@@ -37,10 +37,10 @@ while (A_TickCount - startTime < 3300) {
     if (!toggle)
         break
     Click
-    Sleep, 50
+
 }
 Send, {a up}
-Sleep, 100
+
 
 cycleCount += 1
 
@@ -52,10 +52,10 @@ if (cycleCount >= 3) {
         if (!toggle)
             break
         Click
-        Sleep, 50
+
     }
     Send, {d up}
-    Sleep, 100
+
 
     ; ======== Sequência especial ========
     Send, 9
