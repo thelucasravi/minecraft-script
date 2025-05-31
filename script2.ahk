@@ -2,12 +2,12 @@ toggle := false
 cycleCount := 0
 return
 
-F7:: ; Iniciar
+F7:: ; Iniciar macro
 toggle := true
 SetTimer, MacroLoop, 10
 return
 
-F8:: ; Parar
+F8:: ; Parar macro
 toggle := false
 SetTimer, MacroLoop, Off
 Send, {d up}
@@ -42,10 +42,20 @@ while (A_TickCount - startTime < 3300) {
 Send, {a up}
 Sleep, 100
 
-; ======== Contador de ciclos ========
 cycleCount += 1
+
 if (cycleCount >= 3) {
-    cycleCount := 0
+    ; ======== Extra ida para direita ========
+    Send, {d down}
+    startTime := A_TickCount
+    while (A_TickCount - startTime < 3300) {
+        if (!toggle)
+            break
+        Click
+        Sleep, 50
+    }
+    Send, {d up}
+    Sleep, 100
 
     ; ======== Sequência especial ========
     Send, 9
@@ -55,12 +65,13 @@ if (cycleCount >= 3) {
     Send, 2
     Sleep, 50
     Click, right
-
-    ; Espera 0.5s antes de mover o mouse
     Sleep, 500
     MouseMove, 0, -50, 0, R
     Sleep, 50
     Click, right
     Sleep, 20
+
+    ; Resetar ciclo
+    cycleCount := 0
 }
 return
