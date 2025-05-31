@@ -1,5 +1,6 @@
 toggle := false
 cycleCount := 0
+specialActionToggle := 0
 return
 
 F7:: ; Iniciar macro
@@ -25,10 +26,8 @@ while (A_TickCount - startTime < 3300) {
     if (!toggle)
         break
     Click
-
 }
 Send, {d up}
-
 
 ; ======== Pressionar A com autoclick ========
 Send, {a down}
@@ -37,10 +36,8 @@ while (A_TickCount - startTime < 3300) {
     if (!toggle)
         break
     Click
-
 }
 Send, {a up}
-
 
 cycleCount += 1
 
@@ -48,20 +45,24 @@ if (cycleCount >= 3) {
     ; ======== Extra ida para direita ========
     Send, {d down}
     startTime := A_TickCount
+    didSpecial := false
+
     while (A_TickCount - startTime < 3300) {
         if (!toggle)
             break
         Click
 
+        ; Executa a ação especial apenas se for a vez correta e ainda não executou
+        if (!didSpecial && specialActionToggle = 0 && A_TickCount - startTime < 100) {
+            Send, 9
+            Sleep, 30
+            Click, right
+            didSpecial := true
+        }
     }
     Send, {d up}
 
-
     ; ======== Sequência especial ========
-    Send, 9
-    Sleep, 50
-    Click, right
-    Sleep, 50
     Send, 2
     Sleep, 50
     Click, right
@@ -71,7 +72,10 @@ if (cycleCount >= 3) {
     Click, right
     Sleep, 20
 
-    ; Resetar o contador para reiniciar o ciclo imediatamente
+    ; Alterna a flag da ação especial para fazer 1 vez a cada 2 voltas
+    specialActionToggle := !specialActionToggle
+
+    ; Resetar ciclo
     cycleCount := 0
 }
 return
