@@ -37,16 +37,6 @@ Send, {d up}
 MouseMove, 600, 0, 0, R
 Sleep, 100
 
-; Pressiona W duas vezes rapidamente
-Send, {w down}
-Sleep, 50
-Send, {w up}
-Sleep, 50
-Send, {w down}
-Sleep, 50
-Send, {w up}
-Sleep, 100
-
 ; Etapa 3: Se for o 5º ciclo, executa ação especial
 if (turnCount = 5) {
     ; Abre menu com tecla 2
