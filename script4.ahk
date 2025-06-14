@@ -21,13 +21,13 @@ Loop {
         return
 
     Click ; botão esquerdo
-    if ((A_TickCount - startTime) >= 1000 * (rightCount := Mod((A_TickCount - startTime) // 1000, 16))) {
+    if ((A_TickCount - startTime) >= 1500 * (rightCount := Mod((A_TickCount - startTime) // 1000, 16))) {
         Click, right ; botão direito a cada 1 segundo
     }
 
     Sleep, 10
 
-    if ((A_TickCount - startTime) >= 15000)
+    if ((A_TickCount - startTime) >= 600000)
         break
 }
 
@@ -35,13 +35,15 @@ Loop {
 ; (Nada pra desligar explicitamente, pois é controlado pelo loop acima)
 
 Send, 1
-Sleep, 50
+Sleep, 300
 Click, right
-Sleep, 100
-MouseMove, 0, -50, 0, R
-Sleep, 100
+Sleep, 500
+MouseMove, 0, -75, 0, R
+Sleep, 300
 Click, right
-Sleep, 100
+Sleep, 300
+Send, 9
+Sleep, 300
 
 ; Recomeça o ciclo
 return
