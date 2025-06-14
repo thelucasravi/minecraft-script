@@ -27,7 +27,7 @@ Loop {
 
     Sleep, 10
 
-    if ((A_TickCount - startTime) >= 600000)
+    if ((A_TickCount - startTime) >= 1080000)
         break
 }
 
