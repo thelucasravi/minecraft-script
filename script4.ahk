@@ -12,38 +12,39 @@ if (toggle) {
 return
 
 MainLoop:
-; ===== Etapa 1: Ativar autoclicks por 15s =====
+; ===== Etapa 1: Ativar autoclicks por 10 minutos =====
 Send, 9
 startTime := A_TickCount
+lastRightClick := A_TickCount
 
 Loop {
     if (!toggle)
         return
 
-    Click ; botão esquerdo
-    if ((A_TickCount - startTime) >= 2000 * (rightCount := Mod((A_TickCount - startTime) // 2000, 16))) {
-        Click, right ; botão direito a cada 1 segundo
+    Click ; botão esquerdo (autoclick)
+
+    ; Clique direito a cada 2 segundos
+    if (A_TickCount - lastRightClick >= 2000) {
+        Click, right
+        lastRightClick := A_TickCount
     }
 
     Sleep, 10
 
-    if ((A_TickCount - startTime) >= 1080000)
+    ; Sai após 10 minutos (600.000 ms)
+    if (A_TickCount - startTime >= 1080000)
         break
 }
 
-; ===== Etapa 2: Parar autoclicks e executar ações =====
-; (Nada pra desligar explicitamente, pois é controlado pelo loop acima)
-
+; ===== Etapa 2: Pausa e ações =====
 Send, 1
-Sleep, 300
+Sleep, 50
 Click, right
-Sleep, 500
-MouseMove, 0, -75, 0, R
-Sleep, 300
+Sleep, 100
+MouseMove, 0, -50, 0, R
+Sleep, 100
 Click, right
-Sleep, 300
-Send, 9
-Sleep, 300
+Sleep, 100
 
-; Recomeça o ciclo
+; Reinicia ciclo automaticamente
 return
