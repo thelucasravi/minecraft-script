@@ -21,7 +21,7 @@ Loop {
         return
 
     Click ; botão esquerdo
-    if ((A_TickCount - startTime) >= 1500 * (rightCount := Mod((A_TickCount - startTime) // 1000, 16))) {
+    if ((A_TickCount - startTime) >= 2000 * (rightCount := Mod((A_TickCount - startTime) // 2000, 16))) {
         Click, right ; botão direito a cada 1 segundo
     }
 
