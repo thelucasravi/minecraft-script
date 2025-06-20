@@ -51,6 +51,7 @@ Sleep, 100
 
 Click, right
 Sleep, 100
+Send, 9
 
 ; Reinicia ciclo automaticamente
 return
