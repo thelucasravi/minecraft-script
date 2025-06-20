@@ -51,7 +51,10 @@ Sleep, 100
 
 Click, right
 Sleep, 100
+
+; ✅ Volta pra tecla 9 antes de reiniciar o ciclo
 Send, 9
+Sleep, 100
 
 ; Reinicia ciclo automaticamente
 return
