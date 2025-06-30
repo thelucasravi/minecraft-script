@@ -5,7 +5,7 @@ F7:: ; Ativa ou desativa o macro do /kit senzu
 toggleKit := !toggleKit
 
 if (toggleKit) {
-    SetTimer, KitMacro, 10000 ; Executa a cada 10 segundos
+    SetTimer, KitMacro, 605000 ; Executa a cada 10 minutos
 } else {
     SetTimer, KitMacro, Off
 }
