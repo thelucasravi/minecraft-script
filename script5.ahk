@@ -19,7 +19,7 @@ KitMacro:
 Send, t
 Sleep, 200
 Send, /kit senzu
-Sleep, 100
+Sleep, 500
 Send, {Enter}
 return
 
